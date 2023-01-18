@@ -37,3 +37,14 @@ async function addStaffMember() {
       choices: ["Engineer", "Intern", "Manager"]
     }
   ]);
+
+// prompt user for role-specific information
+  let staff;
+  if (answers.role === "Manager") {
+    const managerAns = await inquirer.prompt([
+      {
+        type: "input",
+        message: "What is your office number?",
+        name: "officeNumber"
+      }
+    ]);
