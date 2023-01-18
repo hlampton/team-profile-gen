@@ -8,3 +8,6 @@ The user should clone the repository from GitHub and download Node. This applica
 
 ## Usage 
 Use inquirer from your command line to answer questions about your project.
+
+## Tests
+Run `npm test` to run Jest for tests on constructors. 
