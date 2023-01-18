@@ -48,3 +48,57 @@ async function addStaffMember() {
         name: "officeNumber"
       }
     ]);
+
+staff = new Manager(answers.name, answers.id, answers.email, managerAns.officeNumber);
+  } else if (answers.role === "Engineer") {
+    const githubAns = await inquirer.prompt([
+      {
+        type: "input",
+        message: "What is your GitHub username?",
+        name: "github"
+      }
+    ]);
+    staff = new Engineer(answers.name, answers.id, answers.email, githubAns.github);
+  } else if (answers.role === "Intern") {
+    const schoolAns = await inquirer.prompt([
+      {
+        type: "input",
+        message: "What university did you attend?",
+        name: "school"
+      }
+    ]);
+    staff = new Intern(answers.name, answers.id, answers.email, schoolAns.school);
+  }
+
+// add new staff to array
+  staffData.push(staff);
+
+  // prompt user to add more staff or generate team
+  const moreAns = await inquirer.prompt([
+    {
+      name: "more",
+      type: "list",
+      choices: ["Add more staff", "Generate team"],
+      message: "What would you like to do next?"
+      }
+      ]);
+      
+      if (moreAns.more === "Add more staff") {
+      return addStaffMember();
+      } else {
+      return generateTeam();
+      }
+      }
+      
+      // function to generate team page
+      function generateTeam() {
+      console.log("New staff members:", staffData);
+      fs.writeFileSync(
+      "./output/team.html",
+      generateTeam(staffData),
+      "utf-8"
+      );
+      }
+      
+      // start the program
+      addStaffMember();
